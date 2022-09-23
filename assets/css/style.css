@@ -1,3 +1,7 @@
+html {
+box-sizing: unset;
+}
+
 #sidebar{
     height: 100vh;
 }
