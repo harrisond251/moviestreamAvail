@@ -1,4 +1,3 @@
-var searchInputEl = document.querySelector('#title');
 var errorMessage = document.querySelector('#error-message');
 
 function handleSearchFormSubmit(event) {
@@ -17,7 +16,7 @@ function handleSearchFormSubmit(event) {
         return;
     }
 
-    var queryString = './searchpage.html?q=' + searchInputEl + '&y=' + yearInputVal;
+    var queryString = './searchpage.html?q=' + searchInputVal + '&y=' + yearInputVal;
 
     location.assign(queryString);
 }
