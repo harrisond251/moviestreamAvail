@@ -13,35 +13,42 @@
     <div class="columns">
       <div id="sidebar" class="column is-3 has-background-dark">
         <h1 class="title is-3 has-text-white has-text-centered">Movie Search App</h1>
-        <form>
-          <input aria-label="Title Input" id="title" type="text" placeholder="Enter Movie Title">
-          <input aria-label="Year Input" id="year" type="text" placeholder="Enter Movie Year">
-          <button id="search-btn">Search</button>
-        </form>
-        <ul id="history-list">
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-        </ul>
+        <div class="pl-4">
+          <form>
+            <input aria-label="Title Input" id="title" type="text" placeholder="Enter Movie Title">
+            <input aria-label="Year Input" id="year" type="text" placeholder="Enter Movie Year" class="mt-1">
+          </form>
+          <button id="search-btn" class="btn button is-primary mt-4">Search</button>
+          <ul id="history-list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+          </ul>
+        </div>
       </div>
-      <div id="results-panel column">
-        <h1>Results for</h1>
-        <card id="movie-results">
-          <p id="imgpic">h</p>
-          <p>Movie Title</p>
-          <div>
-            <p>insert information about movie here.
-              examples:
-            </p>
-            <ul>
-              <li>Director</li>
-              <li>Actors</li>
-              <li>Summary (short)</li>
-            </ul>
+      <div id="results-panel column" class="p-3">
+        <h1 class="title is-3">Results for <span id="movieTitle"></span></h1>
+          <card id="movie-results" class="columns">
+            <img id="imgpic" class="column" src="https://via.placeholder.com/200
+            "></img>
+            <div class="column">
+              <div class="box">
+
+                <p>insert information about movie here.
+                  examples:
+                </p>
+                <ul>
+                  <li>Director</li>
+                  <li>Actors</li>
+                  <li>Summary (short)</li>
+                </ul>
+              </div>
+              <div class="box">
+                <p>Here is a list the user can find all of the streaming service(s) this movie can be found if available.
+                </p>
+              </div>
           </div>
-          <p>Here is a list the user can find all of the streaming service(s) this movie can be found if available.
-          </p>
-        </card>
+          </card>
       </div>
     </div>
   </body>

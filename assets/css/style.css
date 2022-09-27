@@ -1,7 +1,17 @@
-html {
-box-sizing: unset;
+input {
+    width: 96%;
+}
+
+.columns {
+    margin-top: 0;
+}
+
+.btn {
+    width: 96%;
 }
 
 #sidebar{
-    height: 100vh;
+    height: 105vh;
 }
+
+
