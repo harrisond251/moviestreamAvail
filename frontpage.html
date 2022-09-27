@@ -13,7 +13,7 @@
     <div class="container column is-8">
       <div class="box has-background-dark">
         <h1 class="title is-2 has-text-white has-text-centered">Movie Search App</h1>
-        <form>
+        <form id="userInputForm">
           <label class="label has-text-white">Title:</label>
           <input class="input" aria-label="Title Input" id="title" type="text" placeholder="Enter Movie Title">
           <label class="label has-text-white mt-1">Year:</label>
@@ -21,6 +21,7 @@
           <div class="buttons is-centered">
             <button id="search-btn" class="button is-primary mt-4">Search</button>
           </div>
+          <p id="error-message" class="title is-5 has-text-white has-text-centered"></p>
         </form>
       </div>
     </div>

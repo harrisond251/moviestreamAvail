@@ -14,4 +14,25 @@ input {
     height: 105vh;
 }
 
+/* img {
+    max-height: 25%;
+} */
+#movie-poster {
+    width: 50%;
+    height: auto;
+    max-width: 50vh;
+    max-height: 90vh;
+}
+/* 
+@media screen and (max-width: 767px) {
+    #movie-results {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
+    #movie-poster {
+        width: 100%;
+        max-width: 100%
+    }
+} */
