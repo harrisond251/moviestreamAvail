@@ -24,16 +24,16 @@ input {
     max-width: 50vh;
     max-height: 90vh;
 }
-/* 
-@media screen and (max-width: 767px) {
-    #movie-results {
+
+@media screen and (max-width: 768px) {
+    /* #movie-results {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-    }
+    } */
 
     #movie-poster {
-        width: 100%;
-        max-width: 100%
+        margin-left: auto;
+        margin-right: auto;
     }
-} */
+}
