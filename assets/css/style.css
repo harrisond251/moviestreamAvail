@@ -36,4 +36,9 @@ input {
         margin-left: auto;
         margin-right: auto;
     }
+
+    #results-title {
+        margin-left: 1.5rem;
+        margin-bottom: 0;
+    }
 }
