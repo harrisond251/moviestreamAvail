@@ -7,7 +7,7 @@ input {
 }
 
 .btn {
-    width: 96%;
+    width: 100%;
 }
 
 #sidebar{
@@ -17,6 +17,7 @@ input {
 /* img {
     max-height: 25%;
 } */
+
 #movie-poster {
     width: 50%;
     height: auto;

@@ -15,8 +15,10 @@
         <h1 class="title is-3 has-text-white has-text-centered">Movie Search App</h1>
         <div class="pl-4">
           <form>
-            <input aria-label="Title Input" id="title" type="text" placeholder="Enter Movie Title">
-            <input aria-label="Year Input" id="year" type="text" placeholder="Enter Movie Year" class="mt-1">
+            <div class="field">
+            <input class="input" aria-label="Title Input" id="title" type="text" placeholder="Enter Movie Title">
+            <input class="input mt-2" aria-label="Year Input" id="year" type="text" placeholder="Enter Movie Year">
+            </div>
           </form>
           <button id="search-btn" class="btn button is-primary mt-4">Search</button>
           <ul id="history-list">
