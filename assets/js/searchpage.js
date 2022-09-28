@@ -1,4 +1,4 @@
-var movieName = document.querySelector('#title').value;
+var movieName = 'jumanji';
 
 // Defining variables related to the movie poster API
 var moviePosterEl = document.querySelector('#movie-poster');
@@ -7,15 +7,15 @@ var moviePosterAPIURL = 'https://api.themoviedb.org/3/search/movie?api_key=' + m
 var rootPosterURL = 'http://image.tmdb.org/t/p/w500/';
 
 // Fetching the movie poster API
-fetch(moviePosterAPIURL) 
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (data) {
-    console.log(data);
-    var moviePosterURL = data.results[0].poster_path;
-    moviePosterEl.setAttribute('src', rootPosterURL + moviePosterURL);
-  })
+// fetch(moviePosterAPIURL) 
+//   .then(function (response) {
+//     return response.json();
+//   })
+//   .then(function (data) {
+//     console.log(data);
+//     var moviePosterURL = data.results[0].poster_path;
+//     moviePosterEl.setAttribute('src', rootPosterURL + moviePosterURL);
+//   })
 
 /* api url for streaming availability*/
 var apiUrl = "https://streaming-availability.p.rapidapi.com/get/basic?country=us";
@@ -37,7 +37,14 @@ const options = {
 function fetchMovieData(serviceId) { 
   fetch( apiUrl + "&imdb_id=" + serviceId + '&output_language=en', options)
     .then(response => response.json())
-    .then(response => console.log(response))
+    // .then(response => console.log(response))
+    .then(function (data) {
+      console.log(data);
+      var moviePosterImg = data.posterPath;
+
+      moviePosterEl.setAttribute('src', 'https://image.tmdb.org/t/p/w780' + moviePosterImg);
+
+    })
     .catch(err => console.error(err));
 };
 
@@ -51,13 +58,14 @@ fetch( api2Url + "&t=jumanji" , option2)
       return response.json();
     })
     .then(function (data) {
-      /* creating varibles for results and sending them to html */
       console.log(data);
+
+            /* creating varibles for results and sending them to html */
       var imdb_id = data.imdbID;
       var movietitle = data.Title;
-      var plot = data.Plot
-      var director = data.Director
-      var actors = data.Actors
+      var plot = data.Plot;
+      var director = data.Director;
+      var actors = data.Actors;
 
       document.getElementById('movieTitle').innerHTML = movietitle
       document.getElementById('plotText').innerHTML = plot
