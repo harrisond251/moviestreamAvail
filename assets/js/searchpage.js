@@ -1,10 +1,8 @@
-var title ='';
-var year ='';
+var title = '';
+var year = '';
 var searchHistory = [];
 var titleEl = document.querySelector('#title');
 var yearEl = document.querySelector('#year');
-
-
 
 // Designating variables for HTML elements
 var moviePosterEl = document.querySelector('#movie-poster');
@@ -27,24 +25,27 @@ const options = {
   }
 };
 
+var errorMessage = document.querySelector('#error-message');
+
 // Form submission for searchpage.
 function handleSearchFormSubmit(event) {
   event.preventDefault();
 
-var title = titleEl.value;
-var year = yearEl.value;
+  var title = titleEl.value;
+  var year = yearEl.value;
   if (!title) {
-      errorMessage.textContent = 'Please enter a search input value';
+    errorMessage.textContent = 'Please enter a search input value';
 
-      setTimeout(function(){
-          errorMessage.textContent = '';
-      }, 2000);
+    setTimeout(function () {
+      errorMessage.textContent = '';
+    }, 2000);
 
-      return;
+    return;
   }
 
   fetchMovieApi(title, year);
 }
+
 // when user searches, refreshes page to new movie info
 var searchBtn = document.querySelector('#search-btn');
 searchBtn.addEventListener('click', handleSearchFormSubmit);
@@ -59,8 +60,8 @@ function getInputs() {
 }
 
 /* function that stores the data that displays results for streaming availability */
-function fetchMovieData(serviceId) { 
-  fetch( apiUrl + "&imdb_id=" + serviceId + '&output_language=en', options)
+function fetchMovieData(serviceId) {
+  fetch(apiUrl + "&imdb_id=" + serviceId + '&output_language=en', options)
     .then(response => response.json())
     .then(function (data) {
       console.log(data);
@@ -77,62 +78,68 @@ var api2Url = "http://www.omdbapi.com/?apikey=c2500aea";
 
 /* fetch for omdb api */
 function fetchMovieApi(title, year) {
-fetch( api2Url + "&t=" + title + '&y=' + year , option2)
-  .then(function (response) {
-    /* converts response to json */
-// HERE ADD ERROR MESSAGE FOR 404 RESPONSE
+  fetch(api2Url + "&t=" + title + '&y=' + year, option2)
+    .then(function (response) {
+      /* converts response to json */
+      // HERE ADD ERROR MESSAGE FOR 404 RESPONSE
       return response.json();
     })
-        .then(function (data) {
-        console.log(data);
+    .then(function (data) {
+      console.log(data);
 
-        /* creating varibles for results and sending them to html */
-        var imdb_id = data.imdbID;
-        var movietitle = data.Title;
-        var plot = data.Plot;
-        var director = data.Director;
-        var actors = data.Actors;
+      /* creating varibles for results and sending them to html */
+      var imdb_id = data.imdbID;
+      var movietitle = data.Title;
+      var plot = data.Plot;
+      var director = data.Director;
+      var actors = data.Actors;
 
-        document.getElementById('movieTitle').innerHTML = movietitle
-        document.getElementById('plotText').innerHTML = plot
-        document.getElementById('directorText').innerHTML = director
-        document.getElementById('actorsText').innerHTML = actors
+      document.getElementById('movieTitle').innerHTML = movietitle
+      document.getElementById('plotText').innerHTML = plot
+      document.getElementById('directorText').innerHTML = director
+      document.getElementById('actorsText').innerHTML = actors
 
-        console.log(imdb_id)
-        fetchMovieData(imdb_id)
-        storeHistory(title, year);
+      console.log(imdb_id)
+      fetchMovieData(imdb_id)
+      // storeHistory(movietitle, year);
 
-        // Fix this for loop to properly read the object
-        for (var i = 0; i < searchHistory.length; i++) {
-            if (searchHistory[i].Title.includes(movietitle)) {
-                return;    
-            } else {
-                createPastSearchBtn(movietitle, year);
-            }
-    }
-    }) 
+      // Push the searchHistory objects into an array and flatten the array in order to use the .include for repeat movies
+      var checkArr = [];
+      for (var i = 0; i < searchHistory.length; i++) {
+        checkArr.push(Object.values(searchHistory[i]));
+        console.log(checkArr)
+      }
+      checkArrCheck = checkArr.flat(1)
+      console.log(checkArrCheck);
+
+      if (checkArrCheck.includes(movietitle)) {
+        return;
+      } else {
+        storeHistory(movietitle, year);
+        createPastSearchBtn(movietitle, year);
+      }
+    })
 }
 
-  
-  getInputs();
+
+getInputs();
 
 
 // Creates additional search buttons
-function createPastSearchBtn (title, year) {
-    var pastSearchBtn = document.createElement('button');
-    // Update 'title' variable once this is officially created here based on the search input
-    pastSearchBtn.textContent = title;
-    pastSearchBtn.setAttribute('type', 'button');
-    pastSearchBtn.classList.add('btn', 'button', 'is-primary', 'mt-4', 'past-search-btn');
-    searchHistoryEl.append(pastSearchBtn);
-    pastSearchBtn.addEventListener('click', searchHandlerPast);
+function createPastSearchBtn(title, year) {
+  var pastSearchBtn = document.createElement('button');
+  // Update 'title' variable once this is officially created here based on the search input
+  pastSearchBtn.textContent = title;
+  pastSearchBtn.setAttribute('type', 'button');
+  pastSearchBtn.classList.add('btn', 'button', 'is-primary', 'mt-4', 'past-search-btn');
+  searchHistoryEl.append(pastSearchBtn);
+  pastSearchBtn.addEventListener('click', searchHandlerPast);
 }
 
 // Handles the search input from buttons created from previous searches
-function searchHandlerPast (event) {
-    title = event.target.textContent;
-    fetchMovieApi(title, year);
-
+function searchHandlerPast(event) {
+  title = event.target.textContent;
+  fetchMovieApi(title, year);
 }
 
 // Adding event listener to the buttons created from previous searches. This allows the user to interact with the past search buttons that appeared upon loading the page
@@ -143,35 +150,41 @@ function searchHandlerPast (event) {
 // })
 
 // Stores previous searches within an array if a movie was not previously searched for and stores these searches in the local storage
-function storeHistory (title, year) {
-    if (searchHistory.includes(title)) { // Update this if statement to properly read the object
-        return;
-    } else {
-    searchHistory.push({Title: title, Year: year});
-    localStorage.setItem('Search History', JSON.stringify(searchHistory));
-}}
+function storeHistory(title, year) {
+  //   var checkArr = [];
+  //         for (var i = 0; i < searchHistory.length; i++) {
+  //           checkArr.push(Object.values(searchHistory[i]));
+  //           console.log(checkArr)
+  //         }
+
+  // if (checkArr.includes(title)) { // Update this if statement to properly read the object
+  //         return;
+  //     } else {
+  searchHistory.push({ Title: title, Year: year });
+  localStorage.setItem('Search History', JSON.stringify(searchHistory));
+}
 
 // Checks the local storage for past searches and initializes creating button elements for them if so. Also hides the results-area.
-function init () {
-    var storedSearches = JSON.parse(localStorage.getItem("Search History"))
+function init() {
+  var storedSearches = JSON.parse(localStorage.getItem("Search History"))
 
-    if (storedSearches !== null) {
-        searchHistory = storedSearches;
-    }
-    createPastSearchBtnOnPageLoad();
+  if (storedSearches !== null) {
+    searchHistory = storedSearches;
+  }
+  createPastSearchBtnOnPageLoad();
 }
 
 
 // Creates a button element for each past search stored in the local storage
-function createPastSearchBtnOnPageLoad () {
-    for (var i = 0; i < searchHistory.length; i++) {
-        var pastSearchBtn = document.createElement('button');
-        pastSearchBtn.textContent = searchHistory[i].Title;
-        pastSearchBtn.setAttribute('type', 'button');
-        pastSearchBtn.classList.add('btn', 'button', 'is-primary', 'mt-4', 'past-search-btn');
-        searchHistoryEl.append(pastSearchBtn);
-        pastSearchBtn.addEventListener('click', searchHandlerPast);
-    }
+function createPastSearchBtnOnPageLoad() {
+  for (var i = 0; i < searchHistory.length; i++) {
+    var pastSearchBtn = document.createElement('button');
+    pastSearchBtn.textContent = searchHistory[i].Title;
+    pastSearchBtn.setAttribute('type', 'button');
+    pastSearchBtn.classList.add('btn', 'button', 'is-primary', 'mt-4', 'past-search-btn');
+    searchHistoryEl.append(pastSearchBtn);
+    pastSearchBtn.addEventListener('click', searchHandlerPast);
+  }
 }
 
 init();
