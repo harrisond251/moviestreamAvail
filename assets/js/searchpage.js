@@ -1,5 +1,6 @@
-var title ='';
-var year ='';
+var titleEl = document.querySelector('#title');
+var yearEl = document.querySelector('#year');
+
 
 
 // Designating variables for HTML elements
@@ -22,6 +23,28 @@ const options = {
     'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
   }
 };
+
+// Form submission for searchpage.
+function handleSearchFormSubmit(event) {
+  event.preventDefault();
+
+var title = titleEl.value;
+var year = yearEl.value;
+  if (!title) {
+      errorMessage.textContent = 'Please enter a search input value';
+
+      setTimeout(function(){
+          errorMessage.textContent = '';
+      }, 2000);
+
+      return;
+  }
+
+  fetchMovieApi(title, year);
+}
+// when user searches, refreshes page to new movie info
+var searchBtn = document.querySelector('#search-btn');
+searchBtn.addEventListener('click', handleSearchFormSubmit);
 
 function getInputs() {
   // gets the parameters title and year from previous page, from local URL.
@@ -55,6 +78,7 @@ function fetchMovieApi(title, year) {
 fetch( api2Url + "&t=" + title + '&y=' + year , option2)
   .then(function (response) {
     /* converts response to json */
+// HERE ADD ERROR MESSAGE FOR 404 RESPONSE
       return response.json();
     })
     .then(function (data) {
@@ -75,6 +99,8 @@ fetch( api2Url + "&t=" + title + '&y=' + year , option2)
     console.log(imdb_id)
     fetchMovieData(imdb_id)
     }) 
+    
+
   }
   
   getInputs();
@@ -93,8 +119,9 @@ function createPastSearchBtn (title, year) {
 
 // Handles the search input from buttons created from previous searches
 function searchHandlerPast (event) {
-    movieName = event.target.textContent;
+    title = event.target.textContent;
     fetchMovieApi(title, year);
+
 }
 
 // Adding event listener to the buttons created from previous searches. This allows the user to interact with the past search buttons that appeared upon loading the page
@@ -103,4 +130,3 @@ var allPastSearchBtns = document.querySelectorAll('.past-search-btn');
 allPastSearchBtns.forEach(item => {
     item.addEventListener('click', searchHandlerPast);
 })
-
