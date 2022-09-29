@@ -7,7 +7,7 @@ input {
 }
 
 .btn {
-    width: 96%;
+    width: 100%;
 }
 
 #sidebar{
@@ -17,22 +17,33 @@ input {
 /* img {
     max-height: 25%;
 } */
+
 #movie-poster {
     width: 50%;
     height: auto;
     max-width: 50vh;
     max-height: 90vh;
 }
-/* 
-@media screen and (max-width: 767px) {
-    #movie-results {
+
+@media screen and (max-width: 768px) {
+    /* #movie-results {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-    }
+    } */
 
     #movie-poster {
-        width: 100%;
-        max-width: 100%
+        margin-left: auto;
+        margin-right: auto;
     }
-} */
+
+    #results-title {
+        margin-left: 1.5rem;
+        margin-bottom: 0;
+    }
+
+    .input, .btn {
+        width: 98%;
+    }
+
+}
