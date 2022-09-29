@@ -23,3 +23,5 @@ function handleSearchFormSubmit(event) {
 
 var searchBtn = document.querySelector('#search-btn');
 searchBtn.addEventListener('click', handleSearchFormSubmit);
+
+
