@@ -2,6 +2,7 @@ var titleEl = document.querySelector('#title');
 var yearEl = document.querySelector('#year');
 
 
+
 // Designating variables for HTML elements
 var moviePosterEl = document.querySelector('#movie-poster');
 var searchHistoryEl = document.querySelector('#history-list');
@@ -52,6 +53,7 @@ function getInputs() {
   year = searchParamsArr[1].split('=').pop();
 
   fetchMovieApi(title, year);
+  createPastSearchBtn(title, year);
 }
 
 /* function that stores the data that displays results for streaming availability */
@@ -105,7 +107,7 @@ fetch( api2Url + "&t=" + title + '&y=' + year , option2)
 
 
 // Creates additional search buttons
-function createPastSearchBtn () {
+function createPastSearchBtn (title, year) {
     var pastSearchBtn = document.createElement('button');
     // Update 'movieName' variable once this is officially created here based on the search input
     pastSearchBtn.textContent = title;
@@ -118,7 +120,8 @@ function createPastSearchBtn () {
 // Handles the search input from buttons created from previous searches
 function searchHandlerPast (event) {
     title = event.target.textContent;
-    fetchMovieApi();
+    fetchMovieApi(title, year);
+
 }
 
 // Adding event listener to the buttons created from previous searches. This allows the user to interact with the past search buttons that appeared upon loading the page
