@@ -1,3 +1,7 @@
+hr {
+    margin-top: 0.75rem;
+}
+
 input {
     width: 96%;
 }
@@ -14,10 +18,6 @@ input {
     height: 105vh;
 }
 
-/* img {
-    max-height: 25%;
-} */
-
 #movie-poster {
     width: 50%;
     height: auto;
@@ -26,12 +26,11 @@ input {
 }
 
 @media screen and (max-width: 768px) {
-    /* #movie-results {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    } */
-
+    hr {
+        margin-left: 0px;
+        width: 98%;
+    }
+    
     #movie-poster {
         margin-left: auto;
         margin-right: auto;
