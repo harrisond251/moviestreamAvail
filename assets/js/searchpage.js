@@ -19,6 +19,15 @@ const options = {
   }
 };
 
+function getInputs() {
+  // gets the parameters title and year from previous page, from local URL.
+  var searchParamsArr = document.location.search.split('&');
+  var title = searchParamsArr[0].split('=').pop();
+  var year = searchParamsArr[1].split('=').pop();
+
+  fetchMovieApi(title, year);
+}
+
 /* function that stores the data that displays results for streaming availability */
 function fetchMovieData(serviceId) { 
   fetch( apiUrl + "&imdb_id=" + serviceId + '&output_language=en', options)
@@ -37,7 +46,8 @@ function fetchMovieData(serviceId) {
 var api2Url = "http://www.omdbapi.com/?apikey=c2500aea";
 
 /* fetch for omdb api */
-fetch( api2Url + "&t=jumanji" , option2)
+function fetchMovieApi(title, year) {
+fetch( api2Url + "&t=" + title + '&y=' + year , option2)
   .then(function (response) {
     /* converts response to json */
       return response.json();
@@ -60,6 +70,10 @@ fetch( api2Url + "&t=jumanji" , option2)
     console.log(imdb_id)
     fetchMovieData(imdb_id)
     }) 
-  
-      
+  }
+
+
+
+  fetchMovieApi();
+  getInputs();
   
