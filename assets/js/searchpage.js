@@ -1,4 +1,5 @@
-var movieName = 'jumanji';
+var titleEl = document.querySelector('#title');
+var yearEl = document.querySelector('#year');
 
 
 // Designating variables for HTML elements
@@ -22,11 +23,33 @@ const options = {
   }
 };
 
+// Form submission for searchpage.
+function handleSearchFormSubmit(event) {
+  event.preventDefault();
+
+var title = titleEl.value;
+var year = yearEl.value;
+  if (!title) {
+      errorMessage.textContent = 'Please enter a search input value';
+
+      setTimeout(function(){
+          errorMessage.textContent = '';
+      }, 2000);
+
+      return;
+  }
+
+  fetchMovieApi(title, year);
+}
+// when user searches, refreshes page to new movie info
+var searchBtn = document.querySelector('#search-btn');
+searchBtn.addEventListener('click', handleSearchFormSubmit);
+
 function getInputs() {
   // gets the parameters title and year from previous page, from local URL.
   var searchParamsArr = document.location.search.split('&');
-  var title = searchParamsArr[0].split('=').pop();
-  var year = searchParamsArr[1].split('=').pop();
+  title = searchParamsArr[0].split('=').pop();
+  year = searchParamsArr[1].split('=').pop();
 
   fetchMovieApi(title, year);
 }
@@ -53,6 +76,7 @@ function fetchMovieApi(title, year) {
 fetch( api2Url + "&t=" + title + '&y=' + year , option2)
   .then(function (response) {
     /* converts response to json */
+// HERE ADD ERROR MESSAGE FOR 404 RESPONSE
       return response.json();
     })
     .then(function (data) {
@@ -73,6 +97,8 @@ fetch( api2Url + "&t=" + title + '&y=' + year , option2)
     console.log(imdb_id)
     fetchMovieData(imdb_id)
     }) 
+    
+
   }
   
   getInputs();
@@ -82,7 +108,7 @@ fetch( api2Url + "&t=" + title + '&y=' + year , option2)
 function createPastSearchBtn () {
     var pastSearchBtn = document.createElement('button');
     // Update 'movieName' variable once this is officially created here based on the search input
-    pastSearchBtn.textContent = movieName;
+    pastSearchBtn.textContent = title;
     pastSearchBtn.setAttribute('type', 'button');
     pastSearchBtn.classList.add('btn', 'button', 'is-primary', 'mt-4', 'past-search-btn');
     searchHistoryEl.append(pastSearchBtn);
@@ -91,7 +117,7 @@ function createPastSearchBtn () {
 
 // Handles the search input from buttons created from previous searches
 function searchHandlerPast (event) {
-    movieName = event.target.textContent;
+    title = event.target.textContent;
     fetchMovieApi();
 }
 
@@ -101,4 +127,3 @@ var allPastSearchBtns = document.querySelectorAll('.past-search-btn');
 allPastSearchBtns.forEach(item => {
     item.addEventListener('click', searchHandlerPast);
 })
-
