@@ -1,6 +1,9 @@
 var title ='';
 var year ='';
 var searchHistory = [];
+var titleEl = document.querySelector('#title');
+var yearEl = document.querySelector('#year');
+
 
 
 // Designating variables for HTML elements
@@ -23,6 +26,28 @@ const options = {
     'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
   }
 };
+
+// Form submission for searchpage.
+function handleSearchFormSubmit(event) {
+  event.preventDefault();
+
+var title = titleEl.value;
+var year = yearEl.value;
+  if (!title) {
+      errorMessage.textContent = 'Please enter a search input value';
+
+      setTimeout(function(){
+          errorMessage.textContent = '';
+      }, 2000);
+
+      return;
+  }
+
+  fetchMovieApi(title, year);
+}
+// when user searches, refreshes page to new movie info
+var searchBtn = document.querySelector('#search-btn');
+searchBtn.addEventListener('click', handleSearchFormSubmit);
 
 function getInputs() {
   // gets the parameters title and year from previous page, from local URL.
@@ -55,6 +80,7 @@ function fetchMovieApi(title, year) {
 fetch( api2Url + "&t=" + title + '&y=' + year , option2)
   .then(function (response) {
     /* converts response to json */
+// HERE ADD ERROR MESSAGE FOR 404 RESPONSE
       return response.json();
     })
         .then(function (data) {
@@ -86,6 +112,7 @@ fetch( api2Url + "&t=" + title + '&y=' + year , option2)
     }
     }) 
 }
+
   
   getInputs();
 
@@ -105,6 +132,7 @@ function createPastSearchBtn (title, year) {
 function searchHandlerPast (event) {
     title = event.target.textContent;
     fetchMovieApi(title, year);
+
 }
 
 // Adding event listener to the buttons created from previous searches. This allows the user to interact with the past search buttons that appeared upon loading the page
@@ -133,6 +161,7 @@ function init () {
     createPastSearchBtnOnPageLoad();
 }
 
+
 // Creates a button element for each past search stored in the local storage
 function createPastSearchBtnOnPageLoad () {
     for (var i = 0; i < searchHistory.length; i++) {
@@ -146,3 +175,4 @@ function createPastSearchBtnOnPageLoad () {
 }
 
 init();
+
