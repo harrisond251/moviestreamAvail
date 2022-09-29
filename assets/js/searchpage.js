@@ -2,20 +2,6 @@ var movieName = 'jumanji';
 
 // Defining variables related to the movie poster API
 var moviePosterEl = document.querySelector('#movie-poster');
-var moviePosterAPIKey = '15d2ea6d0dc1d476efbca3eba2b9bbfb&query';
-var moviePosterAPIURL = 'https://api.themoviedb.org/3/search/movie?api_key=' + moviePosterAPIKey + '&query=' + movieName;
-var rootPosterURL = 'http://image.tmdb.org/t/p/w500/';
-
-// Fetching the movie poster API
-// fetch(moviePosterAPIURL) 
-//   .then(function (response) {
-//     return response.json();
-//   })
-//   .then(function (data) {
-//     console.log(data);
-//     var moviePosterURL = data.results[0].poster_path;
-//     moviePosterEl.setAttribute('src', rootPosterURL + moviePosterURL);
-//   })
 
 /* api url for streaming availability*/
 var apiUrl = "https://streaming-availability.p.rapidapi.com/get/basic?country=us";
@@ -37,7 +23,6 @@ const options = {
 function fetchMovieData(serviceId) { 
   fetch( apiUrl + "&imdb_id=" + serviceId + '&output_language=en', options)
     .then(response => response.json())
-    // .then(response => console.log(response))
     .then(function (data) {
       console.log(data);
       var moviePosterImg = data.posterPath;
