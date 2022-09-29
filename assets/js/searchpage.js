@@ -1,7 +1,10 @@
 var movieName = 'jumanji';
 
-// Defining variables related to the movie poster API
+
+// Designating variables for HTML elements
 var moviePosterEl = document.querySelector('#movie-poster');
+var searchHistoryEl = document.querySelector('#history-list');
+
 
 /* api url for streaming availability*/
 var apiUrl = "https://streaming-availability.p.rapidapi.com/get/basic?country=us";
@@ -14,7 +17,7 @@ const option2 = {
 const options = {
   method: 'GET',
   headers: {
-    'X-RapidAPI-Key': 'b564bfa71cmshde756ebe5dfec26p17269bjsnb2462c928d37',
+    'X-RapidAPI-Key': '9b73a9c0d1msh3e6ef4e5723685ep1028d6jsn55b713e0fed6',
     'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
   }
 };
@@ -71,9 +74,31 @@ fetch( api2Url + "&t=" + title + '&y=' + year , option2)
     fetchMovieData(imdb_id)
     }) 
   }
-
-
-
-  fetchMovieApi();
-  getInputs();
   
+  getInputs();
+
+
+// Creates additional search buttons
+function createPastSearchBtn () {
+    var pastSearchBtn = document.createElement('button');
+    // Update 'movieName' variable once this is officially created here based on the search input
+    pastSearchBtn.textContent = movieName;
+    pastSearchBtn.setAttribute('type', 'button');
+    pastSearchBtn.classList.add('btn', 'button', 'is-primary', 'mt-4', 'past-search-btn');
+    searchHistoryEl.append(pastSearchBtn);
+    pastSearchBtn.addEventListener('click', searchHandlerPast);
+}
+
+// Handles the search input from buttons created from previous searches
+function searchHandlerPast (event) {
+    movieName = event.target.textContent;
+    fetchMovieApi();
+}
+
+// Adding event listener to the buttons created from previous searches. This allows the user to interact with the past search buttons that appeared upon loading the page
+var allPastSearchBtns = document.querySelectorAll('.past-search-btn');
+
+allPastSearchBtns.forEach(item => {
+    item.addEventListener('click', searchHandlerPast);
+})
+
