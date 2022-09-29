@@ -25,6 +25,8 @@ const options = {
   }
 };
 
+var errorMessage = document.querySelector('#error-message');
+
 // Form submission for searchpage.
 function handleSearchFormSubmit(event) {
   event.preventDefault();
