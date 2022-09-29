@@ -100,16 +100,23 @@ fetch( api2Url + "&t=" + title + '&y=' + year , option2)
 
         console.log(imdb_id)
         fetchMovieData(imdb_id)
-        storeHistory(title, year);
+        // storeHistory(movietitle, year);
 
         // Fix this for loop to properly read the object
+        var checkArr = [];
         for (var i = 0; i < searchHistory.length; i++) {
-            if (searchHistory[i].Title.includes(movietitle)) {
-                return;    
-            } else {
-                createPastSearchBtn(movietitle, year);
-            }
-    }
+          checkArr.push(Object.values(searchHistory[i]));
+          console.log(checkArr)
+        }
+        checkArrCheck = checkArr.flat(1)
+        console.log(checkArrCheck);
+
+          if (checkArrCheck.includes(movietitle)) {
+              return;    
+          } else {
+            storeHistory(movietitle, year);
+            createPastSearchBtn(movietitle, year);
+          }
     }) 
 }
 
@@ -132,7 +139,6 @@ function createPastSearchBtn (title, year) {
 function searchHandlerPast (event) {
     title = event.target.textContent;
     fetchMovieApi(title, year);
-
 }
 
 // Adding event listener to the buttons created from previous searches. This allows the user to interact with the past search buttons that appeared upon loading the page
@@ -144,12 +150,18 @@ function searchHandlerPast (event) {
 
 // Stores previous searches within an array if a movie was not previously searched for and stores these searches in the local storage
 function storeHistory (title, year) {
-    if (searchHistory.includes(title)) { // Update this if statement to properly read the object
-        return;
-    } else {
+//   var checkArr = [];
+//         for (var i = 0; i < searchHistory.length; i++) {
+//           checkArr.push(Object.values(searchHistory[i]));
+//           console.log(checkArr)
+//         }
+
+// if (checkArr.includes(title)) { // Update this if statement to properly read the object
+//         return;
+//     } else {
     searchHistory.push({Title: title, Year: year});
     localStorage.setItem('Search History', JSON.stringify(searchHistory));
-}}
+}
 
 // Checks the local storage for past searches and initializes creating button elements for them if so. Also hides the results-area.
 function init () {
