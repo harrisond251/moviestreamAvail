@@ -1,4 +1,5 @@
-var movieName = 'jumanji';
+var title ='';
+var year ='';
 
 
 // Designating variables for HTML elements
@@ -25,10 +26,11 @@ const options = {
 function getInputs() {
   // gets the parameters title and year from previous page, from local URL.
   var searchParamsArr = document.location.search.split('&');
-  var title = searchParamsArr[0].split('=').pop();
-  var year = searchParamsArr[1].split('=').pop();
+  title = searchParamsArr[0].split('=').pop();
+  year = searchParamsArr[1].split('=').pop();
 
   fetchMovieApi(title, year);
+  createPastSearchBtn(title, year);
 }
 
 /* function that stores the data that displays results for streaming availability */
@@ -79,10 +81,10 @@ fetch( api2Url + "&t=" + title + '&y=' + year , option2)
 
 
 // Creates additional search buttons
-function createPastSearchBtn () {
+function createPastSearchBtn (title, year) {
     var pastSearchBtn = document.createElement('button');
     // Update 'movieName' variable once this is officially created here based on the search input
-    pastSearchBtn.textContent = movieName;
+    pastSearchBtn.textContent = title;
     pastSearchBtn.setAttribute('type', 'button');
     pastSearchBtn.classList.add('btn', 'button', 'is-primary', 'mt-4', 'past-search-btn');
     searchHistoryEl.append(pastSearchBtn);
@@ -92,7 +94,7 @@ function createPastSearchBtn () {
 // Handles the search input from buttons created from previous searches
 function searchHandlerPast (event) {
     movieName = event.target.textContent;
-    fetchMovieApi();
+    fetchMovieApi(title, year);
 }
 
 // Adding event listener to the buttons created from previous searches. This allows the user to interact with the past search buttons that appeared upon loading the page
