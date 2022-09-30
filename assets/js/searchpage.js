@@ -1,12 +1,16 @@
 var title = '';
 var year = '';
 var searchHistory = [];
+// Designating variables for HTML elements
 var titleEl = document.querySelector('#title');
 var yearEl = document.querySelector('#year');
-
-// Designating variables for HTML elements
+var resultsTitleEl = document.getElementById('results-title');
+var plotTextEl = document.getElementById('plotText');
+var directorTextEl = document.getElementById('directorText');
+var actorsText = document.getElementById('actorsText');
 var moviePosterEl = document.querySelector('#movie-poster');
 var searchHistoryEl = document.querySelector('#history-list');
+var movieResultsCard = document.querySelector('#movie-results');
 
 
 /* api url for streaming availability*/
@@ -78,16 +82,24 @@ function fetchMovieData(serviceId) {
 /* api that stores url for omdb api */
 var api2Url = "http://www.omdbapi.com/?apikey=c2500aea";
 
+let controller = new AbortController();
+
 /* fetch for omdb api */
-function fetchMovieApi(title, year) {
-  fetch(api2Url + "&t=" + title + '&y=' + year, option2)
+function fetchMovieApi(title, year,) {
+  fetch(api2Url + "&t=" + title + '&y=' + year, option2, {signal: controller.signal})
     .then(function (response) {
-      /* converts response to json */
-      // HERE ADD ERROR MESSAGE FOR 404 RESPONSE
-      return response.json();
+    /* converts response to json */
+    return response.json();
     })
     .then(function recieveData(data) {
       console.log(data);
+
+      // Checks to make sure that the movie searched for exists. If not, An error message is shown and the function is returned
+      if (data.Error === 'Movie not found!') {
+        resultsTitleEl.textContent = 'No Results Found. Please Try Again'
+        movieResultsCard.style.display = 'none';
+        return;
+      }
 
       /* creating varibles for results and sending them to html */
       var imdb_id = data.imdbID;
@@ -95,12 +107,13 @@ function fetchMovieApi(title, year) {
       var plot = data.Plot;
       var director = data.Director;
       var actors = data.Actors;
-      document.getElementById('movieTitle').innerHTML = movietitle
-      document.getElementById('plotText').innerHTML = plot
-      document.getElementById('directorText').innerHTML = director
-      document.getElementById('actorsText').innerHTML = actors
-     // document.getElementById('streamingServices').innerHTML = streaming
 
+      resultsTitleEl.innerHTML = 'Results for ' + movietitle;
+      plotTextEl.innerHTML = plot;
+      directorTextEl.innerHTML = director;
+      actorsText.innerHTML = actors;
+
+      movieResultsCard.style.display = 'flex';
       console.log(imdb_id)
       fetchMovieData(imdb_id)
       // storeHistory(movietitle, year);
@@ -124,9 +137,7 @@ function fetchMovieApi(title, year) {
     })
 }
 
-
 getInputs();
-
 
 // Creates additional search buttons
 function createPastSearchBtn(title, year) {
@@ -145,24 +156,8 @@ function searchHandlerPast(event) {
   fetchMovieApi(title, year);
 }
 
-// Adding event listener to the buttons created from previous searches. This allows the user to interact with the past search buttons that appeared upon loading the page
-// var allPastSearchBtns = document.querySelectorAll('.past-search-btn');
-
-// allPastSearchBtns.forEach(item => {
-//     item.addEventListener('click', searchHandlerPast);
-// })
-
 // Stores previous searches within an array if a movie was not previously searched for and stores these searches in the local storage
 function storeHistory(title, year) {
-  //   var checkArr = [];
-  //         for (var i = 0; i < searchHistory.length; i++) {
-  //           checkArr.push(Object.values(searchHistory[i]));
-  //           console.log(checkArr)
-  //         }
-
-  // if (checkArr.includes(title)) { // Update this if statement to properly read the object
-  //         return;
-  //     } else {
   searchHistory.push({ Title: title, Year: year });
   localStorage.setItem('Search History', JSON.stringify(searchHistory));
 }
