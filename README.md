@@ -2,7 +2,7 @@
 
 ## Description
 
-The motivation for this project was to design an application that allows the user to searh for a particular movie and be provided with information about that movie, such as an image of the movie's poster, a brief explanation of the plot, the directors, actors, and which streaming services the movie is available on.
+The motivation for this project was to design an application that allows the user to search for a particular movie and be provided with information about that movie, such as an image of the movie's poster, a brief explanation of the plot, the directors, actors, and which streaming services the movie is available on.
 
 
 ### Future Improvements

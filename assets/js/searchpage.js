@@ -24,7 +24,7 @@ const option2 = {
 const options = {
   method: 'GET',
   headers: {
-    'X-RapidAPI-Key': '85bbc5d89cmsha2b62bbb63772c2p1d3c48jsna971d6b7ced4',
+    'X-RapidAPI-Key': 'b564bfa71cmshde756ebe5dfec26p17269bjsnb2462c928d37',
     'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
   }
 };
@@ -75,8 +75,14 @@ function fetchMovieData(serviceId) {
       var streamingObj = data.streamingInfo
       var objectKey = (Object.keys(streamingObj));
       document.getElementById('streamingServices').innerHTML = objectKey
+      console.log(objectKey.length)
+      if (objectKey.length === 0){
+    
+          document.getElementById('streamingServices').innerHTML = "No Results Found"
+        }
 
     })
+   
     .catch(err => console.error(err));
 };
 
