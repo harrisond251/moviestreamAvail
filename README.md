@@ -1,3 +1,9 @@
+# moviestreamAvail
+Search application for movies to find where it could be streamed (if applicable)
+
+
+
+
 # Movie Streaming Availability Search Tool
 
 ## Description
@@ -28,3 +34,5 @@ Used to fetch the movie poster for each movie, as well as the available streamin
 ## Preview
 
 ![A preview of the app]()
+
+![Gif of website at work](./assets/animations/movie-stream-demo.gif)
