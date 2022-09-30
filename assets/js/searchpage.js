@@ -20,7 +20,7 @@ const option2 = {
 const options = {
   method: 'GET',
   headers: {
-    'X-RapidAPI-Key': '9b73a9c0d1msh3e6ef4e5723685ep1028d6jsn55b713e0fed6',
+    'X-RapidAPI-Key': '85bbc5d89cmsha2b62bbb63772c2p1d3c48jsna971d6b7ced4',
     'X-RapidAPI-Host': 'streaming-availability.p.rapidapi.com'
   }
 };
@@ -42,7 +42,6 @@ function handleSearchFormSubmit(event) {
 
     return;
   }
-
   fetchMovieApi(title, year);
 }
 
@@ -68,6 +67,9 @@ function fetchMovieData(serviceId) {
       var moviePosterImg = data.posterPath;
 
       moviePosterEl.setAttribute('src', 'https://image.tmdb.org/t/p/w780' + moviePosterImg);
+      var streamingObj = data.streamingInfo
+      var objectKey = (Object.keys(streamingObj));
+      document.getElementById('streamingServices').innerHTML = objectKey
 
     })
     .catch(err => console.error(err));
@@ -84,7 +86,7 @@ function fetchMovieApi(title, year) {
       // HERE ADD ERROR MESSAGE FOR 404 RESPONSE
       return response.json();
     })
-    .then(function (data) {
+    .then(function recieveData(data) {
       console.log(data);
 
       /* creating varibles for results and sending them to html */
@@ -93,17 +95,18 @@ function fetchMovieApi(title, year) {
       var plot = data.Plot;
       var director = data.Director;
       var actors = data.Actors;
-
       document.getElementById('movieTitle').innerHTML = movietitle
       document.getElementById('plotText').innerHTML = plot
       document.getElementById('directorText').innerHTML = director
       document.getElementById('actorsText').innerHTML = actors
+     // document.getElementById('streamingServices').innerHTML = streaming
 
       console.log(imdb_id)
       fetchMovieData(imdb_id)
       // storeHistory(movietitle, year);
 
       // Push the searchHistory objects into an array and flatten the array in order to use the .include for repeat movies
+
       var checkArr = [];
       for (var i = 0; i < searchHistory.length; i++) {
         checkArr.push(Object.values(searchHistory[i]));
