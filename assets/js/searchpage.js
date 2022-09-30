@@ -60,6 +60,7 @@ function getInputs() {
   year = searchParamsArr[1].split('=').pop();
 
   fetchMovieApi(title, year);
+  year = '';
 }
 
 /* function that stores the data that displays results for streaming availability */
@@ -86,7 +87,7 @@ let controller = new AbortController();
 
 /* fetch for omdb api */
 function fetchMovieApi(title, year,) {
-  fetch(api2Url + "&t=" + title + '&y=' + year, option2, {signal: controller.signal})
+  fetch(api2Url + "&t=" + title + '&y=' + year, option2)
     .then(function (response) {
     /* converts response to json */
     return response.json();
@@ -119,7 +120,6 @@ function fetchMovieApi(title, year,) {
       // storeHistory(movietitle, year);
 
       // Push the searchHistory objects into an array and flatten the array in order to use the .include for repeat movies
-
       var checkArr = [];
       for (var i = 0; i < searchHistory.length; i++) {
         checkArr.push(Object.values(searchHistory[i]));
