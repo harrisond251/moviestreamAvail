@@ -75,8 +75,14 @@ function fetchMovieData(serviceId) {
       var streamingObj = data.streamingInfo
       var objectKey = (Object.keys(streamingObj));
       document.getElementById('streamingServices').innerHTML = objectKey
+      console.log(objectKey.length)
+      if (objectKey.length === 0){
+    
+          document.getElementById('streamingServices').innerHTML = "No Results Found"
+        }
 
     })
+   
     .catch(err => console.error(err));
 };
 

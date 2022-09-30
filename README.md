@@ -8,9 +8,7 @@ Search application for movies to find where it could be streamed (if applicable)
 
 ## Description
 
-The motivation for this project was to design an application that allows the user to searh for a particular movie and be provided with information about that movie, such as an image of the movie's poster, a brief explanation of the plot, the directors, actors, and which streaming services the movie is available on. Upon loading the application, the user will be prompted to enter the title of the movie they are interested in, as well as have the option to differentiate movie searches by a desired year. Once a movie has been searched for, the user will be redirected to a separate page. If the movie the user searched for is present in the API request, then the user will be presented with the previously mentioned information about that movie. If the movie does not exist in the requested API, then the user will be requested to "please try again" with a valid search.
-
-## Credits
+The motivation for this project was to design an application that allows the user to search for a particular movie and be provided with information about that movie, such as an image of the movie's poster, a brief explanation of the plot, the directors, actors, and which streaming services the movie is available on.
 
 The APIs and their specific features used for this project are listed below:
 
