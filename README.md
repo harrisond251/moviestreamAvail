@@ -27,10 +27,8 @@ Used to fetch the movie poster for each movie, as well as the available streamin
 
 ## Link to Deployed App
 
-[Direct link to webpage]()
+[Direct link to webpage](https://www.harrisond251.github.io/moviestreamAvail/frontpage.html)
 
 ## Preview
-
-![A preview of the app]()
 
 ![Gif of website at work](./assets/animations/movie-stream-demo.gif)
