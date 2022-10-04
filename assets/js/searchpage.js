@@ -76,13 +76,13 @@ function fetchMovieData(serviceId) {
       var objectKey = (Object.keys(streamingObj));
       document.getElementById('streamingServices').innerHTML = objectKey
       console.log(objectKey.length)
-      if (objectKey.length === 0){
-    
-          document.getElementById('streamingServices').innerHTML = "No Results Found"
-        }
+      if (objectKey.length === 0) {
+
+        document.getElementById('streamingServices').innerHTML = "No Results Found"
+      }
 
     })
-   
+
     .catch(err => console.error(err));
 };
 
@@ -95,8 +95,8 @@ let controller = new AbortController();
 function fetchMovieApi(title, year,) {
   fetch(api2Url + "&t=" + title + '&y=' + year, option2)
     .then(function (response) {
-    /* converts response to json */
-    return response.json();
+      /* converts response to json */
+      return response.json();
     })
     .then(function recieveData(data) {
       console.log(data);

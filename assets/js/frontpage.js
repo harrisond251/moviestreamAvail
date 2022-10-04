@@ -9,7 +9,7 @@ function handleSearchFormSubmit(event) {
     if (!searchInputVal) {
         errorMessage.textContent = 'Please enter a search input value';
 
-        setTimeout(function(){
+        setTimeout(function () {
             errorMessage.textContent = '';
         }, 2000);
 
@@ -23,5 +23,3 @@ function handleSearchFormSubmit(event) {
 
 var searchBtn = document.querySelector('#search-btn');
 searchBtn.addEventListener('click', handleSearchFormSubmit);
-
-
