@@ -87,7 +87,7 @@ function fetchMovieData(serviceId) {
 };
 
 /* api that stores url for omdb api */
-var api2Url = "http://www.omdbapi.com/?apikey=c2500aea";
+var api2Url = "https://www.omdbapi.com/?apikey=c2500aea";
 
 let controller = new AbortController();
 
