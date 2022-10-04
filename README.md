@@ -27,7 +27,7 @@ Used to fetch the movie poster for each movie, as well as the available streamin
 
 ## Link to Deployed App
 
-[Direct link to webpage](https://www.harrisond251.github.io/moviestreamAvail/)
+[Direct link to webpage](https://lonelymitoc.github.io/moviestreamAvail/)
 
 ## Preview
 
